@@ -16,16 +16,23 @@ async function authMiddleware(c: Context, next: Next) {
   }
 
   const jwtToken = token.split(' ')[1];
-  const payload = await verify(jwtToken, c.env.JWT_SECRET);
-  if (!payload) {
+  try {
+    const payload = await verify(jwtToken, c.env.JWT_SECRET);
+    if (!payload) {
+      return c.json(
+        { message: 'You are unauthorized. Please signin first' },
+        StatusCode.UNAUTHORIZED
+      );
+    }
+
+    c.set('userId', payload.id);
+    await next();
+  } catch (error) {
     return c.json(
-      { message: 'You are unauthorized. Please signin first' },
-      StatusCode.UNAUTHORIZED
+      { message: 'Internal server error. Please try again later.' },
+      StatusCode.INTERNALSERVERERROR
     );
   }
-
-  c.set('userId', payload.id);
-  await next();
 }
 
 export default authMiddleware;
