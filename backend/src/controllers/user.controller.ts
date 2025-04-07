@@ -60,6 +60,7 @@ export const signInHandler = async (c: Context) => {
     const user = await prisma.user.findUnique({
       where: {
         email: createPayload.email,
+        password: createPayload.password,
       },
     });
 
