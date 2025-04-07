@@ -11,21 +11,13 @@ enum StatusCode {
   OK = 200,
 }
 
-type userSignupType = {
-  email: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-};
-
 export const signUpHandler = async (c: Context) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
   try {
-    const createPayload: userSignupType = await c.req.json();
+    const createPayload = await c.req.json();
     const user = await prisma.user.findFirst({
       where: {
         email: createPayload.email,
@@ -52,12 +44,38 @@ export const signUpHandler = async (c: Context) => {
     return c.json({ token }, StatusCode.OK);
   } catch (error) {
     return c.json(
-      { message: 'Error while signing up. Please try again later.' },
+      { message: 'Internal server error. Please try again later.' },
       StatusCode.INTERNALSERVERERROR
     );
   }
 };
 
 export const signInHandler = async (c: Context) => {
-  c.text('signin controller');
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  try {
+    const createPayload = await c.req.json();
+    const user = await prisma.user.findUnique({
+      where: {
+        email: createPayload.email,
+      },
+    });
+
+    if (!user) {
+      return c.json(
+        { message: 'User not found. Signup or try again with another email.' },
+        StatusCode.NOTFOUND
+      );
+    }
+
+    const token = await sign({ id: user.id }, c.env.JWT_SECRET);
+    return c.json({ token }, StatusCode.OK);
+  } catch (error) {
+    return c.json(
+      { message: 'Internal server error. Please try again later.' },
+      StatusCode.INTERNALSERVERERROR
+    );
+  }
 };
