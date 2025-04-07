@@ -1,9 +1,9 @@
 import { Hono } from "hono";
-import { signUpHandler } from "../controllers/user.controller";
+import { signInHandler, signUpHandler } from "../controllers/user.controller";
 
 const router = new Hono();
 
 router.post("/signup", signUpHandler);
-router.post("/signin");
+router.post("/signin", signInHandler);
 
 export default router;
