@@ -13,6 +13,7 @@ dist/
 
 # deps
 node_modules/
+.prettierrc
 .wrangler
 wrangler.toml
 wrangler.jsonc
