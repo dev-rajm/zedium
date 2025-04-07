@@ -7,14 +7,17 @@ import {
   getBlogsByUser,
   updateBlogById,
 } from '../controllers/blog.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = new Hono();
 
 router.get('/bulk', getAllBlogs);
-router.get('/blogs', getBlogsByUser);
 router.get('/:id', getBlogById);
-router.post('/', createBlog);
-router.put('/:id', updateBlogById);
-router.delete('/:id', deleteBlogById);
+
+// Protected routes
+router.post('/', authMiddleware, createBlog);
+router.put('/:id', authMiddleware, updateBlogById);
+router.get('/blogs', authMiddleware, getBlogsByUser);
+router.delete('/:id', authMiddleware, deleteBlogById);
 
 export default router;
