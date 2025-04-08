@@ -1,14 +1,7 @@
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Context } from 'hono';
-
-enum StatusCode {
-  INTERNALSERVERERROR = 500,
-  BADREQUEST = 400,
-  NOTFOUND = 404,
-  FORBIDDEN = 403,
-  OK = 200,
-}
+import { StatusCode } from '../constants/enums';
 
 export const getAllBlogs = async (c: Context) => {
   const prisma = new PrismaClient({
@@ -25,11 +18,11 @@ export const getAllBlogs = async (c: Context) => {
     if (posts.length == 0) {
       return c.json(
         { message: 'Be first to publish a blog post.' },
-        StatusCode.OK
+        StatusCode.SUCCESS
       );
     }
 
-    return c.json(posts, StatusCode.OK);
+    return c.json(posts, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
       { message: 'Internal server error. Please try again later.' },
@@ -53,10 +46,13 @@ export const getBlogsByUser = async (c: Context) => {
     });
 
     if (posts.length == 0) {
-      return c.json({ message: "You don't have any post yet." }, StatusCode.OK);
+      return c.json(
+        { message: "You don't have any post yet." },
+        StatusCode.SUCCESS
+      );
     }
 
-    return c.json(posts, StatusCode.OK);
+    return c.json(posts, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
       { message: 'Internal server error. Please try again later.' },
@@ -84,7 +80,7 @@ export const getBlogById = async (c: Context) => {
       return c.json({ message: "Post doesn't exist." }, StatusCode.NOTFOUND);
     }
 
-    return c.json(post, StatusCode.OK);
+    return c.json(post, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
       { message: 'Internal server error. Please try again later.' },
@@ -109,7 +105,10 @@ export const createBlog = async (c: Context) => {
 
     const tagNames = createPayload.tags?.split(',').map(tag => tag.trim());
     if (!createPayload.title && !createPayload.content) {
-      return c.json({ message: 'Invalid blog format.' }, StatusCode.FORBIDDEN);
+      return c.json(
+        { message: 'Invalid blog format.' },
+        StatusCode.UNABLETOPROCESS
+      );
     }
 
     const post = await prisma.post.create({
@@ -130,7 +129,7 @@ export const createBlog = async (c: Context) => {
       },
     });
 
-    return c.json({ id: post.id }, StatusCode.OK);
+    return c.json({ id: post.id }, StatusCode.CREATED);
   } catch (error) {
     return c.json(
       {
@@ -166,7 +165,10 @@ export const updateBlogById = async (c: Context) => {
     const tagNames = createPayload.tags?.split(',').map(tag => tag.trim());
 
     if (!createPayload.title || !createPayload.content) {
-      return c.json({ message: 'Invalid blog format' }, StatusCode.FORBIDDEN);
+      return c.json(
+        { message: 'Invalid blog format' },
+        StatusCode.UNABLETOPROCESS
+      );
     }
 
     const updatedPost = await prisma.post.update({
@@ -190,7 +192,7 @@ export const updateBlogById = async (c: Context) => {
       },
     });
 
-    return c.json(updatedPost, StatusCode.OK);
+    return c.json(updatedPost, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
       { message: 'Internal server error. Please try again later.' },
@@ -214,8 +216,6 @@ export const deleteBlogById = async (c: Context) => {
       },
     });
 
-    console.log(post);
-
     if (!post) {
       return c.json({ message: "Post doesn't exist" }, StatusCode.NOTFOUND);
     }
@@ -227,7 +227,7 @@ export const deleteBlogById = async (c: Context) => {
       },
     });
 
-    return c.json({ message: 'Post deleted.' }, StatusCode.OK);
+    return c.json({ message: 'Post deleted.' }, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
       { message: 'Internal server error. Please try again later.' },

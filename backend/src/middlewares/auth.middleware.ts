@@ -1,10 +1,6 @@
 import { Context, Next } from 'hono';
 import { verify } from 'hono/jwt';
-
-enum StatusCode {
-  UNAUTHORIZED = 403,
-  INTERNALSERVERERROR = 500,
-}
+import { StatusCode } from '../constants/enums';
 
 async function authMiddleware(c: Context, next: Next) {
   const token = c.req.header('Authorization');

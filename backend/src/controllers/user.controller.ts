@@ -2,14 +2,7 @@ import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Context } from 'hono';
 import { sign } from 'hono/jwt';
-
-enum StatusCode {
-  INTERNALSERVERERROR = 500,
-  BADREQUEST = 400,
-  NOTFOUND = 404,
-  FORBIDDEN = 403,
-  OK = 200,
-}
+import { StatusCode } from '../constants/enums';
 
 export const signUpHandler = async (c: Context) => {
   const prisma = new PrismaClient({
@@ -25,9 +18,12 @@ export const signUpHandler = async (c: Context) => {
     });
 
     if (user) {
-      return c.json({
-        message: 'Email already exist. Login or try again with another email',
-      });
+      return c.json(
+        {
+          message: 'Email already exist. Login or try again with another email',
+        },
+        StatusCode.CONFLICT
+      );
     }
 
     const newUser = await prisma.user.create({
@@ -41,7 +37,7 @@ export const signUpHandler = async (c: Context) => {
     });
 
     const token = await sign({ id: newUser.id }, c.env.JWT_SECRET);
-    return c.json({ token }, StatusCode.OK);
+    return c.json({ token }, StatusCode.CREATED);
   } catch (error) {
     return c.json(
       { message: 'Internal server error. Please try again later.' },
@@ -67,12 +63,12 @@ export const signInHandler = async (c: Context) => {
     if (!user) {
       return c.json(
         { message: 'User not found. Signup or try again with another email.' },
-        StatusCode.NOTFOUND
+        StatusCode.BADREQUEST
       );
     }
 
     const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({ token }, StatusCode.OK);
+    return c.json({ token }, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
       { message: 'Internal server error. Please try again later.' },
@@ -96,7 +92,7 @@ export const userProfile = async (c: Context) => {
       return c.json({ message: 'Bad request.' }, StatusCode.BADREQUEST);
     }
 
-    return c.json(user, StatusCode.OK);
+    return c.json(user, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
       { message: 'Internal server error. Please try again later.' },
