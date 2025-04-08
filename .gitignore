@@ -12,6 +12,7 @@ dist/
 .idea/shelf
 
 # deps
+dist/
 node_modules/
 .prettierrc
 .vscode
