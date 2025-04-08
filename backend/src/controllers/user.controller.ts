@@ -92,11 +92,11 @@ export const userProfile = async (c: Context) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-  const { id } = c.get('userId');
+  const userId = c.get('userId');
 
   try {
     const user = await prisma.user.findFirst({
-      where: { id },
+      where: { id: userId },
     });
 
     if (!user) {
