@@ -6,7 +6,7 @@ Zedium is a modern blogging application inspired by platform like Medium, design
 
 - **Language**: Typescript.
 - **Frontend**: React.js.
-- **Backend**: Hono, JWT, Zod, Prisma.
+- **Backend**: Hono, Zod, Prisma.
 - **Database**: PostgreSQL.
 - **Hosting**: Cloudflare Workers (Backend), AWS EC2 (Frontend).
 
@@ -30,10 +30,10 @@ Zedium is a modern blogging application inspired by platform like Medium, design
    cd ../frontend && npm install
    ```
 
-3. Create environment variables:
+3. Create environment variables in `.env` file:
 
    ```env
-   DATABASE_URL=<your-postgres-db-url>
+   DATABASE_URL=<your-postgres-connection-url>
    ```
 
 4. Migrate the schema:
