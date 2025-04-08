@@ -117,7 +117,7 @@ export const createBlog = async (c: Context) => {
         title: createPayload.title,
         content: createPayload.content,
         tags: {
-          connectOrCreate: tagNames.map(tag => ({
+          connectOrCreate: tagNames?.map(tag => ({
             where: { tag },
             create: { tag },
           })),
@@ -169,13 +169,6 @@ export const updateBlogById = async (c: Context) => {
 
     const tagNames = createPayload.tags?.split(',').map(tag => tag.trim());
 
-    if (!createPayload.title || !createPayload.content) {
-      return c.json(
-        { message: 'Invalid blog format' },
-        StatusCode.UNABLETOPROCESS
-      );
-    }
-
     const updatedPost = await prisma.post.update({
       where: {
         id: postId,
@@ -185,7 +178,7 @@ export const updateBlogById = async (c: Context) => {
         title: createPayload.title,
         content: createPayload.content,
         tags: {
-          connectOrCreate: tagNames.map(tag => ({
+          connectOrCreate: tagNames?.map(tag => ({
             where: { tag },
             create: { tag },
           })),
