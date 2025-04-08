@@ -25,7 +25,6 @@ export const updateBlogSchema = z.object({
   content: z.string().optional(),
   tags: z.string().optional(),
   published: z.boolean().optional(),
-  id: z.string(),
 });
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
