@@ -11,11 +11,11 @@ import authMiddleware from '../middlewares/auth.middleware';
 
 const router = new Hono();
 
-router.get('/bulk', getAllBlogs);
-router.get('/blogs', authMiddleware, getBlogsByUser);
-router.get('/:id', authMiddleware, getBlogById);
-router.post('/', authMiddleware, createBlog);
-router.put('/:id', authMiddleware, updateBlogById);
-router.delete('/:id', authMiddleware, deleteBlogById);
+router.get('/bulk', getAllBlogs); // Get all posts
+router.get('/blogs', authMiddleware, getBlogsByUser); // Get your owe posts
+router.post('/', authMiddleware, createBlog); // Create post
+router.get('/:id', authMiddleware, getBlogById); // Get post by post Id
+router.put('/:id', authMiddleware, updateBlogById); // Edit post
+router.delete('/:id', authMiddleware, deleteBlogById); // Delete post
 
 export default router;
