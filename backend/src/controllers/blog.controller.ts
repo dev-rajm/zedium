@@ -43,12 +43,12 @@ export const getBlogsByUser = async (c: Context) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
-  const { userId } = c.get('userId');
+  const { id } = c.get('userId');
 
   try {
     const posts = await prisma.post.findMany({
       where: {
-        authorId: userId,
+        authorId: id,
       },
     });
 
@@ -97,7 +97,7 @@ export const createBlog = async (c: Context) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-  const { userId } = c.get('userId');
+  const { id } = c.get('userId');
 
   try {
     const createPayload: {
@@ -116,7 +116,7 @@ export const createBlog = async (c: Context) => {
       data: {
         title: createPayload.title,
         content: createPayload.content,
-        authorId: userId,
+        authorId: id,
         tags: {
           connectOrCreate: tagNames.map(tag => ({
             where: { tag },
@@ -133,7 +133,10 @@ export const createBlog = async (c: Context) => {
     return c.json({ id: post.id }, StatusCode.OK);
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      {
+        message: 'Internal server error. Please try again later.',
+        error: error,
+      },
       StatusCode.INTERNALSERVERERROR
     );
   }
@@ -144,11 +147,11 @@ export const updateBlogById = async (c: Context) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
   const postId = c.req.param('id');
-  const { userId } = c.get('userId');
+  const { id } = c.get('userId');
 
   try {
     const post = await prisma.post.findFirst({
-      where: { id: postId, authorId: userId },
+      where: { id: postId, authorId: id },
     });
 
     if (!post) {
@@ -170,7 +173,7 @@ export const updateBlogById = async (c: Context) => {
     const updatedPost = await prisma.post.update({
       where: {
         id: postId,
-        authorId: userId,
+        authorId: id,
       },
       data: {
         title: createPayload.title,
@@ -202,13 +205,13 @@ export const deleteBlogById = async (c: Context) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
   const postId = c.req.param('id');
-  const { userId } = c.get('userId');
+  const { id } = c.get('userId');
 
   try {
     const post = await prisma.post.findFirst({
       where: {
         id: postId,
-        authorId: userId,
+        authorId: id,
       },
     });
 

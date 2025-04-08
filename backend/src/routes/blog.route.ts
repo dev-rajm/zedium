@@ -13,8 +13,8 @@ const router = new Hono();
 
 router.get('/bulk', getAllBlogs); // Get all posts
 router.get('/blogs', authMiddleware, getBlogsByUser); // Get your owe posts
-router.post('/', authMiddleware, createBlog); // Create post
 router.get('/:id', authMiddleware, getBlogById); // Get post by post Id
+router.post('/', authMiddleware, createBlog); // Create post
 router.put('/:id', authMiddleware, updateBlogById); // Edit post
 router.delete('/:id', authMiddleware, deleteBlogById); // Delete post
 
