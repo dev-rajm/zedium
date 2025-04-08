@@ -214,9 +214,18 @@ export const deleteBlogById = async (c: Context) => {
       },
     });
 
+    console.log(post);
+
     if (!post) {
       return c.json({ message: "Post doesn't exist" }, StatusCode.NOTFOUND);
     }
+
+    await prisma.post.delete({
+      where: {
+        id: postId,
+        authorId: id,
+      },
+    });
 
     return c.json({ message: 'Post deleted.' }, StatusCode.OK);
   } catch (error) {
