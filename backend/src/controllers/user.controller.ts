@@ -3,7 +3,13 @@ import { withAccelerate } from '@prisma/extension-accelerate';
 import { Context } from 'hono';
 import { sign } from 'hono/jwt';
 import { StatusCode } from '../constants/enums';
-import { signInSchema, signUpSchema } from '@devrajm/zedium-common-app';
+import {
+  signInSchema,
+  signUpSchema,
+  SignInSchema,
+  SignUpSchema,
+} from '@devrajm/zedium-common-app';
+import { decryptPassword, encryptPassword } from '../libs';
 
 export const signUpHandler = async (c: Context) => {
   const prisma = new PrismaClient({
@@ -11,7 +17,7 @@ export const signUpHandler = async (c: Context) => {
   }).$extends(withAccelerate());
 
   try {
-    const createPayload = await c.req.json();
+    const createPayload: SignUpSchema = await c.req.json();
     const { success } = signUpSchema.safeParse(createPayload);
     if (!success) {
       return c.json({ message: 'Invalid user input.' }, StatusCode.BADREQUEST);
@@ -32,13 +38,18 @@ export const signUpHandler = async (c: Context) => {
       );
     }
 
+    const generatePasswordHash = await encryptPassword(
+      c.env.SALT,
+      createPayload.password
+    );
+
     const newUser = await prisma.user.create({
       data: {
         email: createPayload.email,
         username: createPayload.username,
         firstName: createPayload.firstName,
         lastName: createPayload.lastName,
-        password: createPayload.password,
+        password: generatePasswordHash,
       },
     });
 
@@ -58,7 +69,7 @@ export const signInHandler = async (c: Context) => {
   }).$extends(withAccelerate());
 
   try {
-    const createPayload = await c.req.json();
+    const createPayload: SignInSchema = await c.req.json();
     const { success } = signInSchema.safeParse(createPayload);
     if (!success) {
       return c.json({ message: 'Invalid user input.' }, StatusCode.BADREQUEST);
@@ -67,7 +78,6 @@ export const signInHandler = async (c: Context) => {
     const user = await prisma.user.findUnique({
       where: {
         email: createPayload.email,
-        password: createPayload.password,
       },
     });
 
@@ -78,8 +88,21 @@ export const signInHandler = async (c: Context) => {
       );
     }
 
+    const checkPassword = await decryptPassword(
+      createPayload.password,
+      user.password
+    );
+
+    if (!checkPassword) {
+      return c.json(
+        { message: 'Incorrect credentials.' },
+        StatusCode.FORBIDDEN
+      );
+    }
+
+    const { password, ...rest } = user;
     const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({ token }, StatusCode.SUCCESS);
+    return c.json({ token: token, user: rest }, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
       { message: 'Internal server error. Please try again later.' },
