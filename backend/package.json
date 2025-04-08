@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "tsc -b && wrangler dev",
     "deploy": "wrangler deploy --minify"
   },
   "dependencies": {
