@@ -80,3 +80,7 @@ export const signInHandler = async (c: Context) => {
     );
   }
 };
+
+export const userProfile = async (c: Context) => {
+  console.log('User profile');
+};
