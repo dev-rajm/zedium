@@ -27,7 +27,13 @@ async function authMiddleware(c: Context, next: Next) {
 
     c.set('userId', payload.id);
     await next();
-  } catch (error) {
+  } catch (error: any) {
+    if (error.name == 'JwtTokenSignatureMismatched') {
+      return c.json(
+        { message: 'Invalid token. Please signin again.' },
+        StatusCode.UNAUTHORIZED
+      );
+    }
     return c.json(
       { message: 'Internal server error. Please try again later.' },
       StatusCode.INTERNALSERVERERROR

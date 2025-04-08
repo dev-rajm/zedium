@@ -135,7 +135,6 @@ export const createBlog = async (c: Context) => {
     return c.json(
       {
         message: 'Internal server error. Please try again later.',
-        error: error,
       },
       StatusCode.INTERNALSERVERERROR
     );
