@@ -82,5 +82,25 @@ export const signInHandler = async (c: Context) => {
 };
 
 export const userProfile = async (c: Context) => {
-  console.log('User profile');
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+  const { id } = c.get('userId');
+
+  try {
+    const user = await prisma.user.findFirst({
+      where: { id },
+    });
+
+    if (!user) {
+      return c.json({ message: 'Bad request.' }, StatusCode.BADREQUEST);
+    }
+
+    return c.json(user, StatusCode.OK);
+  } catch (error) {
+    return c.json(
+      { message: 'Internal server error. Please try again later.' },
+      StatusCode.INTERNALSERVERERROR
+    );
+  }
 };
