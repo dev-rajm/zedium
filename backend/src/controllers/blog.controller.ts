@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Context } from 'hono';
 import { StatusCode } from '../constants/enums';
+import { createBlogSchema, updateBlogSchema } from '@devrajm/zedium-common-app';
 
 export const getAllBlogs = async (c: Context) => {
   const prisma = new PrismaClient({
@@ -103,13 +104,12 @@ export const createBlog = async (c: Context) => {
       published: boolean;
     } = await c.req.json();
 
-    const tagNames = createPayload.tags?.split(',').map(tag => tag.trim());
-    if (!createPayload.title && !createPayload.content) {
-      return c.json(
-        { message: 'Invalid blog format.' },
-        StatusCode.UNABLETOPROCESS
-      );
+    const { success } = createBlogSchema.safeParse(createPayload);
+    if (!success) {
+      return c.json({ message: 'Invalid blog format.' }, StatusCode.BADREQUEST);
     }
+
+    const tagNames = createPayload.tags?.split(',').map(tag => tag.trim());
 
     const post = await prisma.post.create({
       data: {
@@ -162,6 +162,12 @@ export const updateBlogById = async (c: Context) => {
       tags: string;
       published: boolean;
     } = await c.req.json();
+
+    const { success } = updateBlogSchema.safeParse(createPayload);
+    if (!success) {
+      return c.json({ message: 'Invalid blog format.' }, StatusCode.BADREQUEST);
+    }
+
     const tagNames = createPayload.tags?.split(',').map(tag => tag.trim());
 
     if (!createPayload.title || !createPayload.content) {

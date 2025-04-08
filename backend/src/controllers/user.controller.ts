@@ -3,6 +3,7 @@ import { withAccelerate } from '@prisma/extension-accelerate';
 import { Context } from 'hono';
 import { sign } from 'hono/jwt';
 import { StatusCode } from '../constants/enums';
+import { signInSchema, signUpSchema } from '@devrajm/zedium-common-app';
 
 export const signUpHandler = async (c: Context) => {
   const prisma = new PrismaClient({
@@ -11,6 +12,11 @@ export const signUpHandler = async (c: Context) => {
 
   try {
     const createPayload = await c.req.json();
+    const { success } = signUpSchema.safeParse(createPayload);
+    if (!success) {
+      return c.json({ message: 'Invalid user input.' }, StatusCode.BADREQUEST);
+    }
+
     const user = await prisma.user.findFirst({
       where: {
         email: createPayload.email,
@@ -53,6 +59,11 @@ export const signInHandler = async (c: Context) => {
 
   try {
     const createPayload = await c.req.json();
+    const { success } = signInSchema.safeParse(createPayload);
+    if (!success) {
+      return c.json({ message: 'Invalid user input.' }, StatusCode.BADREQUEST);
+    }
+
     const user = await prisma.user.findUnique({
       where: {
         email: createPayload.email,

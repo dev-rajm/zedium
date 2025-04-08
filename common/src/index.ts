@@ -16,12 +16,14 @@ export const signInSchema = z.object({
 export const createBlogSchema = z.object({
   title: z.string(),
   content: z.string(),
+  tags: z.string().optional(),
   published: z.boolean(),
 });
 
 export const updateBlogSchema = z.object({
   title: z.string().optional(),
   content: z.string().optional(),
+  tags: z.string().optional(),
   published: z.boolean().optional(),
   id: z.string(),
 });
