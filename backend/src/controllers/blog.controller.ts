@@ -11,9 +11,18 @@ export const getAllBlogs = async (c: Context) => {
 
   try {
     const posts = await prisma.post.findMany({
-      include: {
-        tags: true,
-        author: true,
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        published: true,
+        publishedAt: true,
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
       },
     });
     if (posts.length == 0) {
@@ -23,10 +32,10 @@ export const getAllBlogs = async (c: Context) => {
       );
     }
 
-    return c.json(posts, StatusCode.SUCCESS);
+    return c.json({ posts }, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.' },
       StatusCode.INTERNALSERVERERROR
     );
   }
@@ -56,7 +65,7 @@ export const getBlogsByUser = async (c: Context) => {
     return c.json(posts, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.' },
       StatusCode.INTERNALSERVERERROR
     );
   }
@@ -84,7 +93,7 @@ export const getBlogById = async (c: Context) => {
     return c.json(post, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.' },
       StatusCode.INTERNALSERVERERROR
     );
   }
@@ -133,7 +142,7 @@ export const createBlog = async (c: Context) => {
     return c.json({ id: post.id }, StatusCode.CREATED);
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.' },
       StatusCode.INTERNALSERVERERROR
     );
   }
@@ -193,7 +202,7 @@ export const updateBlogById = async (c: Context) => {
     return c.json(updatedPost, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.' },
       StatusCode.INTERNALSERVERERROR
     );
   }
@@ -228,7 +237,7 @@ export const deleteBlogById = async (c: Context) => {
     return c.json({ message: 'Post deleted.' }, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.' },
       StatusCode.INTERNALSERVERERROR
     );
   }

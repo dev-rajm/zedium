@@ -25,15 +25,16 @@ export const signUpHandler = async (c: Context) => {
 
     const user = await prisma.user.findFirst({
       where: {
-        email: createPayload.email,
+        OR: [
+          { email: createPayload.email },
+          { username: createPayload.username },
+        ],
       },
     });
 
     if (user) {
       return c.json(
-        {
-          message: 'Email already exist. Login or try again with another email',
-        },
+        { message: 'Credentials already taken.' },
         StatusCode.CONFLICT
       );
     }
@@ -54,10 +55,14 @@ export const signUpHandler = async (c: Context) => {
     });
 
     const token = await sign({ id: newUser.id }, c.env.JWT_SECRET);
-    return c.json({ token }, StatusCode.CREATED);
+
+    return c.json(
+      { token, message: 'Account created successfully.' },
+      StatusCode.CREATED
+    );
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.', error: error },
       StatusCode.INTERNALSERVERERROR
     );
   }
@@ -83,7 +88,7 @@ export const signInHandler = async (c: Context) => {
 
     if (!user) {
       return c.json(
-        { message: 'User not found. Signup or try again with another email.' },
+        { message: 'Incorrect credentials.' },
         StatusCode.BADREQUEST
       );
     }
@@ -102,10 +107,14 @@ export const signInHandler = async (c: Context) => {
 
     const { password, ...rest } = user;
     const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({ token: token, user: rest }, StatusCode.SUCCESS);
+
+    return c.json(
+      { token: token, user: rest, message: 'Signin successfully.' },
+      StatusCode.SUCCESS
+    );
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.' },
       StatusCode.INTERNALSERVERERROR
     );
   }
@@ -115,6 +124,7 @@ export const userProfile = async (c: Context) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
+
   const userId = c.get('userId');
 
   try {
@@ -129,7 +139,7 @@ export const userProfile = async (c: Context) => {
     return c.json(user, StatusCode.SUCCESS);
   } catch (error) {
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.' },
       StatusCode.INTERNALSERVERERROR
     );
   }
