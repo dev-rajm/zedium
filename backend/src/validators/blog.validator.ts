@@ -1,5 +1,5 @@
 import { createBlogSchema, updateBlogSchema } from '@devrajm/zedium-common-app';
-import { StatusCode } from '../constants/enums';
+import { StatusCode } from '../constants/StatusCodes';
 
 export const validateCreateBlog = (input: unknown) => {
   const parsePayload = createBlogSchema.safeParse(input);

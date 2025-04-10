@@ -1,5 +1,5 @@
 import { Context } from 'hono';
-import { StatusCode } from '../constants/enums';
+import { StatusCode } from '../constants/StatusCodes';
 import { getConn } from '../libs/db';
 import handleError from '../utils/errorHandler';
 import {

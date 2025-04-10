@@ -1,5 +1,5 @@
 import { SignInSchema, SignUpSchema } from '@devrajm/zedium-common-app';
-import { StatusCode } from '../constants/enums';
+import { StatusCode } from '../constants/StatusCodes';
 import { GetConnType } from '../libs/db';
 import { validateSignIn, validateSignUp } from '../validators/user.validator';
 import { decryptPassword, encryptPassword, generateToken } from '../libs/auth';

@@ -1,4 +1,4 @@
-import { StatusCode } from '../constants/enums';
+import { StatusCode } from '../constants/StatusCodes';
 import { GetConnType } from '../libs/db';
 
 export const fetchAllTags = async (prisma: GetConnType) => {

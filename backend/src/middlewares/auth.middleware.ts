@@ -1,6 +1,6 @@
 import { Context, Next } from 'hono';
 import { verify } from 'hono/jwt';
-import { StatusCode } from '../constants/enums';
+import { StatusCode } from '../constants/StatusCodes';
 
 async function authMiddleware(c: Context, next: Next) {
   const token = c.req.header('Authorization');

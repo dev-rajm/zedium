@@ -4,7 +4,7 @@ import {
   signUpSchema,
   SignUpSchema,
 } from '@devrajm/zedium-common-app';
-import { StatusCode } from '../constants/enums';
+import { StatusCode } from '../constants/StatusCodes';
 
 export const validateSignUp = (input: unknown): SignUpSchema => {
   const parsePayload = signUpSchema.safeParse(input);

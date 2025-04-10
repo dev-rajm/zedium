@@ -1,5 +1,5 @@
 import { Context } from 'hono';
-import { StatusCode } from '../constants/enums';
+import { StatusCode } from '../constants/StatusCodes';
 import { SignInSchema, SignUpSchema } from '@devrajm/zedium-common-app';
 import { getConn } from '../libs/db';
 import handleError from '../utils/errorHandler';

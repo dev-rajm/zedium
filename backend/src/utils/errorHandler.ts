@@ -1,5 +1,5 @@
 import { Context } from 'hono';
-import { StatusCode } from '../constants/enums';
+import { StatusCode } from '../constants/StatusCodes';
 
 const handleError = (c: Context, error: any) => {
   console.log(`Error: ${error.message}`);
