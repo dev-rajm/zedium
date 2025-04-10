@@ -4,7 +4,7 @@ import authMiddleware from '../middlewares/auth.middleware';
 
 const router = new Hono();
 
-router.get('/tags', authMiddleware, getAllTags);
+router.get('/tags', getAllTags);
 router.get('/:tag', authMiddleware, getPostsByTag);
 
 export default router;

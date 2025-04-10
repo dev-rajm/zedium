@@ -1,6 +1,7 @@
 import BlogCard from '../components/BlogCard';
 import Navbar from '../components/Navbar';
-import { useBlog } from '../hooks';
+import Sidebar from '../components/Sidebar';
+import { useBlog } from '../hooks/blog.hook';
 
 interface GetPostType {
   id: string;
@@ -18,11 +19,11 @@ function Blogs() {
   return (
     <>
       <Navbar />
-      <div className="mt-14 grid grid-cols-1 lg:grid-cols-2">
+      <div className="mt-14 grid h-screen grid-cols-1 lg:grid-cols-4">
         {loading ? (
-          <div className="mt-14">Loading...</div>
+          <div className="mt-14 lg:col-span-3">Loading...</div>
         ) : (
-          <div className="px-5 flex flex-col items-end md:px-0">
+          <div className="px-5 flex flex-col items-center md:px-0 lg:col-span-3">
             {blogs
               .filter(blog => blog.published)
               .map(blog => (
@@ -37,7 +38,9 @@ function Blogs() {
               ))}
           </div>
         )}
-        <div>hello</div>
+        <div className="border-l border-slate-300 hidden lg:block">
+          <Sidebar />
+        </div>
       </div>
     </>
   );
