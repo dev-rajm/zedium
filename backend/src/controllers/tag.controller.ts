@@ -1,7 +1,7 @@
 import { Context } from 'hono';
 import { StatusCode } from '../constants/enums';
 import { getConn } from '../libs/db';
-import handleError from '../utils/error';
+import handleError from '../utils/errorHandler';
 
 export const getAllTags = async (c: Context) => {
   const prisma = getConn(c.env.DATABASE_URL);

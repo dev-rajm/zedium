@@ -2,7 +2,7 @@ import { Context } from 'hono';
 import { StatusCode } from '../constants/enums';
 import { SignInSchema, SignUpSchema } from '@devrajm/zedium-common-app';
 import { getConn } from '../libs/db';
-import handleError from '../utils/error';
+import handleError from '../utils/errorHandler';
 import {
   fetchUserProfile,
   loginUser,
