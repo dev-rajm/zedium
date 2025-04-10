@@ -8,7 +8,7 @@ export const useBlog = () => {
 
   useEffect(() => {
     axios.get(`${BACKEND_URL}/api/v1/blog/bulk`).then(resolve => {
-      setBlogs(resolve.data.posts);
+      setBlogs(resolve.data.blogs);
       setLoading(false);
     });
   }, []);

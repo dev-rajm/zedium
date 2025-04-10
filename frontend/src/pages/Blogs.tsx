@@ -15,28 +15,29 @@ function Blogs() {
   const { loading, blogs }: { loading: boolean; blogs: GetPostType[] } =
     useBlog();
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   return (
     <>
       <Navbar />
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="px-10 md:px-0">
-          {blogs.map(blog => {
-            if (blog.published) {
-              return (
+      <div className="mt-14 grid grid-cols-1 lg:grid-cols-2">
+        {loading ? (
+          <div className="mt-14">Loading...</div>
+        ) : (
+          <div className="px-5 flex flex-col items-end md:px-0">
+            {blogs
+              .filter(blog => blog.published)
+              .map(blog => (
                 <BlogCard
+                  key={blog.id}
                   firstName={blog.author.firstName}
                   lastName={blog.author.lastName}
                   title={blog.title}
                   content={blog.content}
                   date={new Date(blog.publishedAt)}
                 />
-              );
-            }
-          })}
-        </div>
+              ))}
+          </div>
+        )}
+        <div>hello</div>
       </div>
     </>
   );
