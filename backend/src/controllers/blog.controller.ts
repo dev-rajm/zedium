@@ -2,6 +2,7 @@ import { Context } from 'hono';
 import { StatusCode } from '../constants/enums';
 import { createBlogSchema, updateBlogSchema } from '@devrajm/zedium-common-app';
 import getConn from '../libs/db';
+import handleError from '../utils/error';
 
 export const getAllBlogs = async (c: Context) => {
   const prisma = getConn(c.env.DATABASE_URL);
@@ -31,10 +32,7 @@ export const getAllBlogs = async (c: Context) => {
 
     return c.json({ posts }, StatusCode.SUCCESS);
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error.' },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };
 
@@ -59,10 +57,7 @@ export const getBlogsByUser = async (c: Context) => {
 
     return c.json(posts, StatusCode.SUCCESS);
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error.' },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };
 
@@ -86,10 +81,7 @@ export const getBlogById = async (c: Context) => {
 
     return c.json(post, StatusCode.SUCCESS);
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error.' },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };
 
@@ -133,10 +125,7 @@ export const createBlog = async (c: Context) => {
 
     return c.json({ id: post.id }, StatusCode.CREATED);
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error.' },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };
 
@@ -192,10 +181,7 @@ export const updateBlogById = async (c: Context) => {
 
     return c.json(updatedPost, StatusCode.SUCCESS);
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error.' },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };
 
@@ -225,9 +211,6 @@ export const deleteBlogById = async (c: Context) => {
 
     return c.json({ message: 'Post deleted.' }, StatusCode.SUCCESS);
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error.' },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };

@@ -9,6 +9,7 @@ import {
 } from '@devrajm/zedium-common-app';
 import { decryptPassword, encryptPassword } from '../libs';
 import getConn from '../libs/db';
+import handleError from '../utils/error';
 
 export const signUpHandler = async (c: Context) => {
   const prisma = getConn(c.env.DATABASE_URL);
@@ -58,10 +59,7 @@ export const signUpHandler = async (c: Context) => {
       StatusCode.CREATED
     );
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error.', error: error },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };
 
@@ -108,10 +106,7 @@ export const signInHandler = async (c: Context) => {
       StatusCode.SUCCESS
     );
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error.' },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };
 
@@ -131,9 +126,6 @@ export const userProfile = async (c: Context) => {
 
     return c.json(user, StatusCode.SUCCESS);
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error.' },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };

@@ -1,6 +1,7 @@
 import { Context } from 'hono';
 import { StatusCode } from '../constants/enums';
 import getConn from '../libs/db';
+import handleError from '../utils/error';
 
 export const getAllTags = async (c: Context) => {
   const prisma = getConn(c.env.DATABASE_URL);
@@ -13,10 +14,7 @@ export const getAllTags = async (c: Context) => {
 
     return c.json(tags);
   } catch (error) {
-    return c.json(
-      { message: 'Internal server error. Please try again later.' },
-      StatusCode.INTERNALSERVERERROR
-    );
+    return handleError(c, error);
   }
 };
 
@@ -57,5 +55,7 @@ export const getPostsByTag = async (c: Context) => {
     }
 
     return c.json(posts);
-  } catch (error) {}
+  } catch (error) {
+    return handleError(c, error);
+  }
 };
