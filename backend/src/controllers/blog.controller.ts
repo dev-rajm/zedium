@@ -1,7 +1,7 @@
 import { Context } from 'hono';
 import { StatusCode } from '../constants/enums';
 import { createBlogSchema, updateBlogSchema } from '@devrajm/zedium-common-app';
-import getConn from '../libs/db';
+import { getConn } from '../libs/db';
 import handleError from '../utils/error';
 
 export const getAllBlogs = async (c: Context) => {

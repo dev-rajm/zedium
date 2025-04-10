@@ -5,7 +5,7 @@ type AcceleratedPrismaClient = PrismaClient & ReturnType<typeof withAccelerate>;
 
 let prisma: AcceleratedPrismaClient;
 
-const getConn = (dbUrl: string) => {
+export const getConn = (dbUrl: string) => {
   if (!prisma) {
     prisma = new PrismaClient({ datasourceUrl: dbUrl }).$extends(
       withAccelerate()
@@ -14,4 +14,4 @@ const getConn = (dbUrl: string) => {
   return prisma;
 };
 
-export default getConn;
+export type GetConnType = AcceleratedPrismaClient;

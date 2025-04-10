@@ -1,6 +1,6 @@
 import { Context } from 'hono';
 import { StatusCode } from '../constants/enums';
-import getConn from '../libs/db';
+import { getConn } from '../libs/db';
 import handleError from '../utils/error';
 
 export const getAllTags = async (c: Context) => {
