@@ -1,12 +1,9 @@
-import { PrismaClient } from '@prisma/client/edge';
-import { withAccelerate } from '@prisma/extension-accelerate';
 import { Context } from 'hono';
 import { StatusCode } from '../constants/enums';
+import getConn from '../libs/db';
 
 export const getAllTags = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
 
   try {
     const tags = await prisma.tag.findMany();
@@ -24,9 +21,7 @@ export const getAllTags = async (c: Context) => {
 };
 
 export const getPostsByTag = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
 
   const tagName = c.req.param('tag');
 

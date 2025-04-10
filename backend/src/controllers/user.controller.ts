@@ -1,5 +1,3 @@
-import { PrismaClient } from '@prisma/client/edge';
-import { withAccelerate } from '@prisma/extension-accelerate';
 import { Context } from 'hono';
 import { sign } from 'hono/jwt';
 import { StatusCode } from '../constants/enums';
@@ -10,11 +8,10 @@ import {
   SignUpSchema,
 } from '@devrajm/zedium-common-app';
 import { decryptPassword, encryptPassword } from '../libs';
+import getConn from '../libs/db';
 
 export const signUpHandler = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
 
   try {
     const createPayload: SignUpSchema = await c.req.json();
@@ -69,9 +66,7 @@ export const signUpHandler = async (c: Context) => {
 };
 
 export const signInHandler = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
 
   try {
     const createPayload: SignInSchema = await c.req.json();
@@ -121,9 +116,7 @@ export const signInHandler = async (c: Context) => {
 };
 
 export const userProfile = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
 
   const userId = c.get('userId');
 

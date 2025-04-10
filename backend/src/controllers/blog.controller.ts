@@ -1,13 +1,10 @@
-import { PrismaClient } from '@prisma/client/edge';
-import { withAccelerate } from '@prisma/extension-accelerate';
 import { Context } from 'hono';
 import { StatusCode } from '../constants/enums';
 import { createBlogSchema, updateBlogSchema } from '@devrajm/zedium-common-app';
+import getConn from '../libs/db';
 
 export const getAllBlogs = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
 
   try {
     const posts = await prisma.post.findMany({
@@ -42,9 +39,7 @@ export const getAllBlogs = async (c: Context) => {
 };
 
 export const getBlogsByUser = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
 
   const userId = c.get('userId');
 
@@ -72,9 +67,8 @@ export const getBlogsByUser = async (c: Context) => {
 };
 
 export const getBlogById = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
+
   const id = c.req.param('id');
 
   try {
@@ -100,9 +94,7 @@ export const getBlogById = async (c: Context) => {
 };
 
 export const createBlog = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
 
   const userId = c.get('userId');
 
@@ -149,9 +141,8 @@ export const createBlog = async (c: Context) => {
 };
 
 export const updateBlogById = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
+
   const postId = c.req.param('id');
   const userId = c.get('userId');
 
@@ -209,9 +200,7 @@ export const updateBlogById = async (c: Context) => {
 };
 
 export const deleteBlogById = async (c: Context) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = getConn(c.env.DATABASE_URL);
   const postId = c.req.param('id');
   const userId = c.get('userId');
 
