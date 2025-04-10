@@ -59,8 +59,8 @@ Zedium is a modern blogging application inspired by platform like Medium, design
 
    [vars]
 
-    DATABASE_URL: <your-postgres-accelerate-url>,
-    JWT_SECRET: <your-jwt-secret>
+    DATABASE_URL: "your-postgres-accelerate-url",
+    JWT_SECRET: "your-jwt-secret"
    ```
 
    ```jsonc
@@ -71,8 +71,8 @@ Zedium is a modern blogging application inspired by platform like Medium, design
    "main": "src/index.ts",
    "compatibility_date": "2025-04-07",
    "vars": {
-       "DATABASE_URL": <your-postgres-accelerate-url>,
-       "JWT_SECRET": <your-jwt-secret>
+       "DATABASE_URL": "your-postgres-accelerate-url",
+       "JWT_SECRET": "your-jwt-secret"
    }
 
    ```
