@@ -13,11 +13,11 @@ interface BlogType {
 
 function FullBlog({ blog }: { blog: BlogType }) {
   return (
-    <div className="z-10">
+    <>
       <div className="absolute left-0 right-0 top-14 mx-auto">
         <SecondaryNavbar />
       </div>
-      <div className="absolute top-32 flex justify-center w-screen my-8">
+      <div className="absolute top-32 flex justify-center w-full my-8">
         <div className="max-w-xs lg:max-w-2xl">
           <div className="text-4xl font-bold">{blog.title}</div>
           <div className="mt-6 mb-8 flex items-center">
@@ -42,8 +42,7 @@ function FullBlog({ blog }: { blog: BlogType }) {
           </div>
         </div>
       </div>
-      ;
-    </div>
+    </>
   );
 }
 
