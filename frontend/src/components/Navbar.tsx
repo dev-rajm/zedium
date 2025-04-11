@@ -12,7 +12,7 @@ function Navbar() {
             type="text"
             placeholder="Search"
             id="searchInput"
-            className="hidden lg:block outline-none w-xs ml-5 bg-slate-50 focus:bg-slate-100 text-slate-600 px-4 py-1 rounded-2xl"
+            className="hidden lg:block outline-none w-xs ml-5 bg-slate-100 focus:bg-slate-200 text-slate-600 px-4 py-1 rounded-2xl"
           />
         </div>
       </div>
