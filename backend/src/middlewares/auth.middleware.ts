@@ -4,19 +4,17 @@ import { StatusCode } from '../constants/StatusCodes';
 
 async function authMiddleware(c: Context, next: Next) {
   const token = c.req.header('Authorization');
-  if (!token || !token.startsWith('Bearer')) {
+  if (!token) {
     return c.json(
-      { message: 'You are unauthorized. Please signin first' },
+      { message: 'You are unauthorized.' },
       StatusCode.UNAUTHORIZED
     );
   }
-
-  const jwtToken = token.split(' ')[1];
   try {
-    const payload = await verify(jwtToken, c.env.JWT_SECRET);
+    const payload = await verify(token, c.env.JWT_SECRET);
     if (!payload) {
       return c.json(
-        { message: 'You are unauthorized. Please signin first' },
+        { message: 'You are unauthorized.' },
         StatusCode.UNAUTHORIZED
       );
     }
@@ -25,13 +23,10 @@ async function authMiddleware(c: Context, next: Next) {
     await next();
   } catch (error: any) {
     if (error.name == 'JwtTokenSignatureMismatched') {
-      return c.json(
-        { message: 'Invalid token. Please signin again.' },
-        StatusCode.UNAUTHORIZED
-      );
+      return c.json({ message: 'Invalid token.' }, StatusCode.UNAUTHORIZED);
     }
     return c.json(
-      { message: 'Internal server error. Please try again later.' },
+      { message: 'Internal server error.' },
       StatusCode.INTERNALSERVERERROR
     );
   }

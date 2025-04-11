@@ -1,7 +1,7 @@
-function BlogCardDate({ date }: { date: Date }) {
+function BlogCardDate({ date }: { date: string }) {
   return (
     <div className="text-slate-500 ml-1">
-      {date.toLocaleString('en-us', {
+      {new Date(date).toLocaleString('en-us', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',

@@ -6,7 +6,7 @@ import {
   createNewBlog,
   deleteExistingBlogById,
   fetchAllBlogs,
-  fetchBlogsByBlogId,
+  fetchBlogByBlogId,
   fetchBlogsByUserId,
   updateExistingBlogById,
 } from '../services/blog.service';
@@ -39,7 +39,7 @@ export const getBlogById = async (c: Context) => {
   const blogId = c.req.param('id');
 
   try {
-    const result = await fetchBlogsByBlogId(prisma, blogId);
+    const result = await fetchBlogByBlogId(prisma, blogId);
     return c.json(result, StatusCode.SUCCESS);
   } catch (error) {
     return handleError(c, error);

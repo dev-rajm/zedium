@@ -1,8 +1,4 @@
-import {
-  CreateBlogSchema,
-  UpdateBlogSchema,
-  updateBlogSchema,
-} from '@devrajm/zedium-common-app';
+import { CreateBlogSchema, UpdateBlogSchema } from '@devrajm/zedium-common-app';
 import { StatusCode } from '../constants/StatusCodes';
 import { GetConnType } from '../libs/db';
 import {
@@ -63,7 +59,7 @@ export const fetchBlogsByUserId = async (
   };
 };
 
-export const fetchBlogsByBlogId = async (
+export const fetchBlogByBlogId = async (
   prisma: GetConnType,
   blogId: string
 ) => {
@@ -72,6 +68,12 @@ export const fetchBlogsByBlogId = async (
       id: blogId,
     },
     include: {
+      author: {
+        select: {
+          firstName: true,
+          lastName: true,
+        },
+      },
       tags: true,
     },
   });
@@ -83,7 +85,7 @@ export const fetchBlogsByBlogId = async (
   }
 
   return {
-    blogs: existingBlog,
+    blog: existingBlog,
     status: StatusCode.SUCCESS,
   };
 };

@@ -2,7 +2,7 @@ import Avatar from './Avatar';
 
 function Navbar() {
   return (
-    <div className="flex justify-between fixed top-0 left-0 right-0 items-center h-14 border-b border-slate-200 bg-white px-5">
+    <div className="flex justify-between z-50 fixed top-0 left-0 right-0 items-center h-14 border-b border-slate-200 bg-white px-5">
       <div className="flex items-center">
         <div className="text-4xl tracking-tighter font-[Playfair-Display] font-bold">
           Zedium

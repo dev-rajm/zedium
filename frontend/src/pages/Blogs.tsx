@@ -2,7 +2,7 @@ import BlogCard from '../components/BlogCard';
 import Navbar from '../components/Navbar';
 import PenButton from '../components/PenButton';
 import Sidebar from '../components/Sidebar';
-import { useFetch } from '../hooks/fetch.hook';
+import { useBlogs } from '../hooks';
 import { BlogCardSkeleton } from '../skeletons/BlogCardSkeleton';
 
 interface GetPostType {
@@ -15,8 +15,8 @@ interface GetPostType {
 }
 
 function Blogs() {
-  const { loading, data: blogs }: { loading: boolean; data: GetPostType[] } =
-    useFetch('blog/bulk', 'blogs');
+  const { loading, blogs }: { loading: boolean; blogs: GetPostType[] } =
+    useBlogs();
 
   return (
     <>
@@ -31,11 +31,12 @@ function Blogs() {
               .map(blog => (
                 <BlogCard
                   key={blog.id}
+                  blogId={blog.id}
                   firstName={blog.author.firstName}
                   lastName={blog.author.lastName}
                   title={blog.title}
                   content={blog.content}
-                  date={new Date(blog.publishedAt)}
+                  date={blog.publishedAt}
                 />
               ))}
           </div>

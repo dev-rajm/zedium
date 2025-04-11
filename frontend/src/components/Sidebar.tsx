@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useFetch } from '../hooks/fetch.hook';
+import { useTags } from '../hooks';
 import TagLabel from './TagLabel';
 import SidebarSkeleton from '../skeletons/SidebarSkeleton';
 
@@ -9,8 +9,8 @@ interface GetTagsType {
 }
 
 function Sidebar() {
-  const { loading, data: tags }: { loading: boolean; data: GetTagsType[] } =
-    useFetch('tag/tags', 'tags');
+  const { loading, tags }: { loading: boolean; tags: GetTagsType[] } =
+    useTags();
   const [showAll, setShowAll] = useState(false);
 
   return (
