@@ -1,7 +1,9 @@
 import BlogCard from '../components/BlogCard';
 import Navbar from '../components/Navbar';
+import PenButton from '../components/PenButton';
 import Sidebar from '../components/Sidebar';
 import { useFetch } from '../hooks/fetch.hook';
+import { BlogCardSkeleton } from '../skeletons/BlogCardSkeleton';
 
 interface GetPostType {
   id: string;
@@ -21,7 +23,7 @@ function Blogs() {
       <Navbar />
       <div className="mt-14 grid h-screen grid-cols-1 lg:grid-cols-4">
         {loading ? (
-          <div className="mt-14 lg:col-span-3">Loading...</div>
+          <BlogCardSkeleton count={2} />
         ) : (
           <div className="px-5 flex flex-col items-center md:px-0 lg:col-span-3">
             {blogs
@@ -41,6 +43,9 @@ function Blogs() {
         <div className="border-l border-slate-300 hidden lg:block">
           <Sidebar />
         </div>
+      </div>
+      <div className="fixed bottom-0 right-0 md:hidden">
+        <PenButton />
       </div>
     </>
   );

@@ -12,17 +12,17 @@ function Navbar() {
             type="text"
             placeholder="Search"
             id="searchInput"
-            className="outline-none w-xs ml-5 bg-slate-50 focus:bg-slate-100 text-slate-600 px-4 py-1 rounded-2xl"
+            className="hidden lg:block outline-none w-xs ml-5 bg-slate-50 focus:bg-slate-100 text-slate-600 px-4 py-1 rounded-2xl"
           />
         </div>
       </div>
       <div className="flex items-center">
-        <div className="mr-2 flex text-slate-500">
+        <div className="mr-2 text-slate-600 hidden md:flex">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth="1.5"
+            strokeWidth="1.2"
             stroke="currentColor"
             className="size-6"
           >
@@ -34,7 +34,23 @@ function Navbar() {
           </svg>
           <p className="ml-1">Write</p>
         </div>
-        <div className="ml-5">
+        <div className="mr-2 text-slate-600 flex md:hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            className="size-7"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            />
+          </svg>
+        </div>
+        <div className="ml-2 lg:ml-6">
           <Avatar size={35} firstName="R" lastName="M" />
         </div>
       </div>
