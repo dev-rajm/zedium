@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useFetch } from '../hooks/fetch.hook';
 import TagLabel from './TagLabel';
+import SidebarSkeleton from '../skeletons/SidebarSkeleton';
 
 interface GetTagsType {
   id: string;
@@ -12,25 +13,27 @@ function Sidebar() {
     useFetch('tag/tags', 'tags');
   const [showAll, setShowAll] = useState(false);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="px-8 sticky top-20">
       <div className="text-lg font-semibold mb-3">Recommended topics</div>
-      <div className="flex flex-wrap">
-        {(showAll ? tags : tags.slice(0, 7)).map(tag => (
-          <TagLabel key={tag.id} label={tag.tag} />
-        ))}
-      </div>
-      {tags.length > 7 && (
-        <button
-          className="text-sm text-slate-400 mt-3 hover:underline cursor-pointer"
-          onClick={() => setShowAll(prev => !prev)}
-        >
-          {showAll ? 'Show less topics' : 'Show more topics'}
-        </button>
+      {loading ? (
+        <SidebarSkeleton />
+      ) : (
+        <div>
+          <div className="flex flex-wrap">
+            {(showAll ? tags : tags.slice(0, 7)).map(tag => (
+              <TagLabel key={tag.id} label={tag.tag} />
+            ))}
+          </div>
+          {tags.length > 7 && (
+            <button
+              className="text-sm text-slate-400 mt-3 hover:underline cursor-pointer"
+              onClick={() => setShowAll(prev => !prev)}
+            >
+              {showAll ? 'Show less topics' : 'Show more topics'}
+            </button>
+          )}
+        </div>
       )}
 
       <div className="text-slate-400 text-xs mt-5">
