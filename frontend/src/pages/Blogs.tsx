@@ -1,7 +1,7 @@
 import BlogCard from '../components/BlogCard';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
-import { useBlog } from '../hooks/blog.hook';
+import { useFetch } from '../hooks/fetch.hook';
 
 interface GetPostType {
   id: string;
@@ -13,8 +13,8 @@ interface GetPostType {
 }
 
 function Blogs() {
-  const { loading, blogs }: { loading: boolean; blogs: GetPostType[] } =
-    useBlog();
+  const { loading, data: blogs }: { loading: boolean; data: GetPostType[] } =
+    useFetch('blog/bulk', 'blogs');
 
   return (
     <>
