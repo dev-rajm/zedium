@@ -2,7 +2,7 @@ import Skeleton from 'react-loading-skeleton';
 
 function FullBlogSkeleton() {
   return (
-    <div className="w-full px-5 leading-2">
+    <div className="w-full lg:max-w-xl px-5 leading-2">
       <Skeleton className="bg-slate-200 mr-2 rounded-xl h-9 w-full flex" />
       <Skeleton className="bg-slate-200 mr-2 rounded-xl h-9 w-full flex" />
       <div className="mt-6 mb-8 flex items-center">

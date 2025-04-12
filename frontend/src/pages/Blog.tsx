@@ -3,6 +3,7 @@ import { useBlog } from '../hooks';
 import FullBlog from '../components/FullBlog';
 import Navbar from '../components/Navbar';
 import FullBlogSkeleton from '../skeletons/FullBlogSkeleton';
+import { Toaster } from 'react-hot-toast';
 
 interface BlogType {
   id: string;
@@ -23,8 +24,9 @@ function Blog() {
   return (
     <>
       <Navbar />
+      <Toaster />
       {loading ? (
-        <div className="top-36 absolute right-0 left-0">
+        <div className="top-36 absolute right-0 left-0 flex justify-center">
           <FullBlogSkeleton />
         </div>
       ) : (
