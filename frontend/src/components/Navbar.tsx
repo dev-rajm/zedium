@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
+import { useProfile } from '../hooks';
+
+interface User {
+  firstName: string;
+  lastName: string;
+}
 
 function Navbar() {
+  const { user }: { user: User | undefined } = useProfile();
   return (
     <div className="flex justify-between z-50 fixed top-0 left-0 right-0 items-center h-14 border-b border-slate-200 bg-white px-5">
       <div className="flex items-center">
@@ -53,7 +60,11 @@ function Navbar() {
         </div>
         <div className="ml-2 lg:ml-6">
           <Link to={'/profile'}>
-            <Avatar size={35} firstName="R" lastName="M" />
+            <Avatar
+              size={35}
+              firstName={user ? user?.firstName : ''}
+              lastName={user ? user?.lastName : ''}
+            />
           </Link>
         </div>
       </div>
