@@ -2,6 +2,7 @@ import Avatar from './Avatar';
 import BlogCardAuthor from './BlogCardAuthor';
 import BlogCardDate from './BlogCardDate';
 import SecondaryNavbar from './SecondaryNavbar';
+import TagLabel from './TagLabel';
 
 interface BlogType {
   id: string;
@@ -9,6 +10,7 @@ interface BlogType {
   content: string;
   publishedAt: string;
   author: { firstName: string; lastName: string };
+  tags: { tag: string }[];
 }
 
 function FullBlog({ blog }: { blog: BlogType }) {
@@ -26,7 +28,7 @@ function FullBlog({ blog }: { blog: BlogType }) {
               firstName={blog.author.firstName}
               lastName={blog.author.lastName}
             />
-            <div className="flex flex-col">
+            <div className="flex flex-col ml-1.5">
               <BlogCardAuthor
                 firstName={blog.author.firstName}
                 lastName={blog.author.lastName}
@@ -39,6 +41,11 @@ function FullBlog({ blog }: { blog: BlogType }) {
           </div>
           <div className="font-mono tracking-tight leading-relaxed text-lg">
             {blog.content}
+          </div>
+          <div className="flex my-10 flex-wrap">
+            {blog.tags?.map(tag => (
+              <TagLabel label={tag.tag} />
+            ))}
           </div>
         </div>
       </div>
