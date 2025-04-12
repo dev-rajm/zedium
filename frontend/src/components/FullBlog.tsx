@@ -50,7 +50,7 @@ function FullBlog({ blog }: { blog: BlogType }) {
           </div>
         </div>
 
-        <div className="text-sm border-t border-t-slate-300 text-slate-400 h-16 w-full justify-center items-center flex">
+        <div className="px-5 lg:px-0 text-sm border-t border-t-slate-300 text-slate-400 h-16 w-full justify-center items-center flex">
           <BlogFooter />
         </div>
       </div>

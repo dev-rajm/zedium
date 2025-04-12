@@ -21,7 +21,7 @@ function Blogs() {
   return (
     <>
       <Navbar />
-      <div className="mt-14 grid h-screen grid-cols-1 lg:grid-cols-4">
+      <div className="absolute top-14 left-0 right-0 grid h-screen grid-cols-1 lg:grid-cols-4">
         {loading ? (
           <BlogCardSkeleton count={2} />
         ) : (

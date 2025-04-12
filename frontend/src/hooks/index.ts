@@ -18,6 +18,49 @@ interface Tags {
   tag: string;
 }
 
+interface Users {
+  id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  createdAt: string;
+  posts: {
+    id: string;
+    title: string;
+    content: string;
+    publishedAt: string;
+  }[];
+}
+
+export const useProfile = () => {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<Users>();
+
+  useEffect(() => {
+    const fetcher = async () => {
+      try {
+        const res = await axios.get(`${BACKEND_URL}/api/v1/user/profile`, {
+          headers: { Authorization: localStorage.getItem('token') },
+        });
+        setUser(res.data.user);
+        setLoading(false);
+      } catch (e) {
+        setLoading(false);
+        if (axios.isAxiosError(e)) {
+          toast.error(e.response?.data?.message || 'Something went wrong');
+        } else {
+          toast.error('An unexpected error occurred');
+        }
+      }
+    };
+
+    fetcher();
+  }, []);
+
+  return { loading, user };
+};
+
 export const useBlog = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState(true);
   const [blog, setBlog] = useState<Blogs>();
@@ -55,7 +98,7 @@ export const useBlogs = () => {
         const res = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`);
         setBlogs(res.data.blogs);
         setLoading(false);
-      } catch (e) {
+      } catch (e: unknown) {
         setLoading(false);
         if (axios.isAxiosError(e)) {
           toast.error(e.response?.data?.message || 'Something went wrong');
@@ -81,7 +124,7 @@ export const useTags = () => {
         const res = await axios.get(`${BACKEND_URL}/api/v1/tag/tags`);
         setTags(res.data.tags);
         setLoading(false);
-      } catch (e) {
+      } catch (e: unknown) {
         setLoading(false);
         if (axios.isAxiosError(e)) {
           toast.error(e.response?.data?.message || 'Something went wrong');

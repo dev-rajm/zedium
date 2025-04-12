@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
 
 function Navbar() {
@@ -51,7 +52,9 @@ function Navbar() {
           </svg>
         </div>
         <div className="ml-2 lg:ml-6">
-          <Avatar size={35} firstName="R" lastName="M" />
+          <Link to={'/profile'}>
+            <Avatar size={35} firstName="R" lastName="M" />
+          </Link>
         </div>
       </div>
     </div>

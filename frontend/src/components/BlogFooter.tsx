@@ -1,7 +1,7 @@
 function BlogFooter() {
   return (
     <div>
-      <ul className="flex flex-wrap leading-loose w-full">
+      <ul className="flex flex-wrap leading-loose">
         <li className="mr-2.5 hover:underline cursor-pointer">Help</li>
         <li className="mr-2.5 hover:underline cursor-pointer">About</li>
         <li className="mr-2.5 hover:underline cursor-pointer">Privacy</li>

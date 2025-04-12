@@ -92,6 +92,13 @@ export const loginUser = async (
 export const fetchUserProfile = async (prisma: GetConnType, userId: string) => {
   const existingUser = await prisma.user.findFirst({
     where: { id: userId },
+    select: {
+      firstName: true,
+      lastName: true,
+      username: true,
+      createdAt: true,
+      posts: true,
+    },
   });
 
   if (!existingUser) {
@@ -102,7 +109,7 @@ export const fetchUserProfile = async (prisma: GetConnType, userId: string) => {
   }
 
   return {
-    existingUser,
+    user: existingUser,
     status: StatusCode.SUCCESS,
   };
 };

@@ -25,7 +25,7 @@ function BlogCard({
 }: BlogCardType) {
   return (
     <div className="mt-6">
-      <div className="max-w-2xl border-b border-slate-200 pb-7">
+      <div className="px-5 max-w-2xl w-screen border-b border-slate-200 pb-7">
         <div className="flex items-center text-sm mb-2">
           <Avatar firstName={firstName} lastName={lastName} size={30} />
           <BlogCardAuthor firstName={firstName} lastName={lastName} />

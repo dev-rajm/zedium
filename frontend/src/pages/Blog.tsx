@@ -26,7 +26,7 @@ function Blog() {
       <Navbar />
       <Toaster />
       {loading ? (
-        <div className="top-36 absolute right-0 left-0 flex justify-center">
+        <div className="absolute top-36 left-0 right-0 flex justify-center">
           <FullBlogSkeleton />
         </div>
       ) : (
