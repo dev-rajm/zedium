@@ -18,7 +18,7 @@ interface Users {
 
 function UserProfile({ user }: { user: Users }) {
   return (
-    <div className="h-full border-l border-l-slate-300 pl-5 lg:pl-10">
+    <div className="h-full">
       <div className="sticky top-20">
         <div className="flex flex-col">
           <Avatar

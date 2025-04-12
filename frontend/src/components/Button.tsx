@@ -1,8 +1,4 @@
-interface ButtonType {
-  label: string;
-  loading: boolean;
-  onClick: () => void;
-}
+import { ButtonType } from '../types';
 
 function Button({ label, onClick, loading }: ButtonType) {
   return (

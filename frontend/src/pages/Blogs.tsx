@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import BlogCard from '../components/BlogCard';
 import Navbar from '../components/Navbar';
 import PenButton from '../components/PenButton';
@@ -21,6 +22,7 @@ function Blogs() {
   return (
     <>
       <Navbar />
+      <Toaster />
       <div className="absolute top-14 left-0 right-0 grid h-screen grid-cols-1 lg:grid-cols-4">
         {loading ? (
           <BlogCardSkeleton count={2} />

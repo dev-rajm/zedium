@@ -1,3 +1,4 @@
+import { BlogsType } from '../types';
 import Avatar from './Avatar';
 import BlogCardAuthor from './BlogCardAuthor';
 import BlogCardDate from './BlogCardDate';
@@ -5,16 +6,7 @@ import BlogFooter from './BlogFooter';
 import SecondaryNavbar from './SecondaryNavbar';
 import TagLabel from './TagLabel';
 
-interface BlogType {
-  id: string;
-  title: string;
-  content: string;
-  publishedAt: string;
-  author: { firstName: string; lastName: string };
-  tags: { id: string; tag: string }[];
-}
-
-function FullBlog({ blog }: { blog: BlogType }) {
+function FullBlog({ blog }: { blog: BlogsType }) {
   return (
     <div className="z-10">
       <div className="absolute left-0 right-0 top-14 mx-auto">

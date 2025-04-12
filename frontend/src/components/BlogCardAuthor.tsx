@@ -1,10 +1,6 @@
-function BlogCardAuthor({
-  firstName,
-  lastName,
-}: {
-  firstName: string;
-  lastName: string;
-}) {
+import { AvatarType } from '../types';
+
+function BlogCardAuthor({ firstName, lastName }: AvatarType) {
   return (
     <div className="mr-1 capitalize">
       {firstName} {lastName}

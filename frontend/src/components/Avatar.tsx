@@ -1,8 +1,4 @@
-interface AvatarType {
-  firstName: string;
-  lastName: string;
-  size?: number;
-}
+import { AvatarType } from '../types';
 
 function Avatar({ firstName, lastName, size = 30 }: AvatarType) {
   return (

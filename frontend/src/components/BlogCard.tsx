@@ -5,18 +5,10 @@ import BlogCardDate from './BlogCardDate';
 import BlogCardAuthor from './BlogCardAuthor';
 import BlogCardTimeLabel from './BlogCardTimeLabel';
 import { Link } from 'react-router-dom';
-
-interface BlogCardType {
-  blogId: string;
-  firstName: string;
-  lastName: string;
-  title: string;
-  content: string;
-  date: string;
-}
+import { BlogCardType } from '../types';
 
 function BlogCard({
-  blogId,
+  id,
   firstName,
   lastName,
   title,
@@ -32,7 +24,7 @@ function BlogCard({
           {'•'}
           <BlogCardDate date={date} />
         </div>
-        <Link to={`/blog/${blogId}`}>
+        <Link to={`/blog/${id}`}>
           <BlogCardTitle title={title} />
         </Link>
         <BlogCardDescription content={content} />

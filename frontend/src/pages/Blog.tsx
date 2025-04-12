@@ -4,22 +4,13 @@ import FullBlog from '../components/FullBlog';
 import Navbar from '../components/Navbar';
 import FullBlogSkeleton from '../skeletons/FullBlogSkeleton';
 import { Toaster } from 'react-hot-toast';
-
-interface BlogType {
-  id: string;
-  title: string;
-  content: string;
-  publishedAt: string;
-  author: { firstName: string; lastName: string };
-  tags: { id: string; tag: string }[];
-}
+import { BlogsType } from '../types';
 
 function Blog() {
   const { id } = useParams();
-  const { loading, blog }: { loading: boolean; blog: BlogType | undefined } =
-    useBlog({
-      id: id || '',
-    });
+  const { loading, blog }: { loading: boolean; blog: BlogsType } = useBlog({
+    id: id || '',
+  });
 
   return (
     <>

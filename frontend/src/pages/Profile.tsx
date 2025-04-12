@@ -31,7 +31,7 @@ function Profile() {
           <div className="my-5 lg:my-8 self-start text-4xl font-semibold">
             {user?.firstName} {user?.lastName}
           </div>
-          {user?.posts.map(blog => (
+          {user?.posts?.map(blog => (
             <BlogCard
               key={blog.id}
               blogId={blog.id}
@@ -43,14 +43,14 @@ function Profile() {
             />
           ))}
         </div>
-        <div className="order-1 lg:order-2">
-          {loading ? (
-            <div className="sticky top-20">Loading...</div>
-          ) : (
-            <div className="mt-10 lg:mt-0">
-              {user && <UserProfile user={user} />}
-            </div>
-          )}
+        <div className="order-1 border-l border-l-slate-300 lg:order-2">
+          <div className="sticky top-20 mt-10 lg:mt-0 px-5 lg:px-10">
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              <div>{user && <UserProfile user={user} />}</div>
+            )}
+          </div>
         </div>
       </div>
     </>
