@@ -9,6 +9,7 @@ interface Blogs {
   published: boolean;
   publishedAt: string;
   author: { firstName: string; lastName: string };
+  tags: { tag: string }[];
 }
 
 interface Tags {

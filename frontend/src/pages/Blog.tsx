@@ -9,6 +9,7 @@ interface BlogType {
   content: string;
   publishedAt: string;
   author: { firstName: string; lastName: string };
+  tags: { tag: string }[];
 }
 
 function Blog() {
