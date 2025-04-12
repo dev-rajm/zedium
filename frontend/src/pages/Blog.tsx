@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useBlog } from '../hooks';
 import FullBlog from '../components/FullBlog';
 import Navbar from '../components/Navbar';
+import FullBlogSkeleton from '../skeletons/FullBlogSkeleton';
 
 interface BlogType {
   id: string;
@@ -19,14 +20,16 @@ function Blog() {
       id: id || '',
     });
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
       <Navbar />
-      <div>{blog && <FullBlog blog={blog} />}</div>
+      {loading ? (
+        <div className="top-36 absolute right-0 left-0">
+          <FullBlogSkeleton />
+        </div>
+      ) : (
+        <div>{blog && <FullBlog blog={blog} />}</div>
+      )}
     </>
   );
 }
