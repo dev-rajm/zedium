@@ -25,7 +25,7 @@ function Blog() {
   return (
     <>
       <Navbar />
-      <div className="z-10">{blog && <FullBlog blog={blog} />}</div>
+      <div>{blog && <FullBlog blog={blog} />}</div>
     </>
   );
 }
