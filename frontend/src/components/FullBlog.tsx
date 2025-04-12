@@ -40,7 +40,7 @@ function FullBlog({ blog }: { blog: BlogType }) {
               </div>
             </div>
           </div>
-          <div className="font-serif tracking-normal leading-relaxed text-xl">
+          <div className="font-serif tracking-wide leading-relaxed text-xl">
             {blog.content}
           </div>
           <div className="flex flex-wrap my-8">
