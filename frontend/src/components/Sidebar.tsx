@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTags } from '../hooks';
 import TagLabel from './TagLabel';
 import SidebarSkeleton from '../skeletons/SidebarSkeleton';
+import BlogFooter from './BlogFooter';
 
 interface GetTagsType {
   id: string;
@@ -37,17 +38,7 @@ function Sidebar() {
       )}
 
       <div className="text-slate-400 text-xs mt-5">
-        <ul className="flex flex-wrap leading-loose">
-          <li className="mr-2.5 hover:underline cursor-pointer">Help</li>
-          <li className="mr-2.5 hover:underline cursor-pointer">About</li>
-          <li className="mr-2.5 hover:underline cursor-pointer">Privacy</li>
-          <li className="mr-2.5 hover:underline cursor-pointer">Terms</li>
-          <li className="mr-2.5 hover:underline cursor-pointer">Rules</li>
-          <li className="mr-2.5 hover:underline cursor-pointer">
-            Contribution
-          </li>
-          <li className="mr-2.5 hover:underline cursor-pointer">Contact</li>
-        </ul>
+        <BlogFooter />
       </div>
     </div>
   );
