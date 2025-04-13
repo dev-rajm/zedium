@@ -28,13 +28,10 @@ function Profile() {
       <Toaster />
       <div className="top-14 absolute left-0 right-0 grid h-screen grid-cols-1 lg:grid-cols-4">
         <div className="px-5 flex flex-col items-center md:px-0 lg:col-span-3 order-2 lg:order-1">
-          <div className="my-5 lg:my-8 self-start text-4xl font-semibold">
-            {user?.firstName} {user?.lastName}
-          </div>
           {user?.posts?.map(blog => (
             <BlogCard
               key={blog.id}
-              blogId={blog.id}
+              id={blog.id}
               firstName={user.firstName}
               lastName={user.lastName}
               title={blog.title}
