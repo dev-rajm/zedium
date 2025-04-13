@@ -64,8 +64,8 @@ function Navbar() {
           <Link to={'/profile'}>
             <Avatar
               size={35}
-              firstName={user ? user?.firstName : ''}
-              lastName={user ? user?.lastName : ''}
+              firstName={user ? user?.firstName : 'G'}
+              lastName={user ? user?.lastName : 'T'}
             />
           </Link>
         </div>

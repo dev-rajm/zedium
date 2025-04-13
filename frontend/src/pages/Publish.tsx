@@ -24,7 +24,7 @@ function Publish() {
     <>
       <Navbar />
       <div className="absolute top-20 left-0 right-0">
-        <div className="mx-auto max-w-sm lg:max-w-1/2">
+        <div className="mx-auto px-5 lg:px-0 max-w-sm lg:max-w-4xl">
           <div className="flex justify-end mb-6">
             <button
               onClick={() => setPreview(prev => !prev)}
@@ -33,10 +33,10 @@ function Publish() {
             >
               {preview ? 'Raw' : 'Preview'}
             </button>
-            <button className="bg-red-600 py-1 px-3 rounded-2xl text-sm font-medium text-white ml-3">
+            <button className="bg-red-600 py-2 px-3 rounded-3xl text-sm font-medium text-white ml-3">
               Draft
             </button>
-            <button className="bg-green-600 py-1 px-3 rounded-2xl text-sm font-medium text-white ml-3">
+            <button className="bg-green-600 py-2 px-3 rounded-3xl text-sm font-medium text-white ml-3">
               Publish
             </button>
           </div>
