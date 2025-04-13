@@ -1,4 +1,4 @@
-function BlogCardTitle({ title }: { title: string }) {
+function Title({ title }: { title: string }) {
   return (
     <div className="text-2xl font-bold my-2">
       {title.length > 89 ? title.slice(0, 90) + '...' : title}
@@ -6,4 +6,4 @@ function BlogCardTitle({ title }: { title: string }) {
   );
 }
 
-export default BlogCardTitle;
+export default Title;

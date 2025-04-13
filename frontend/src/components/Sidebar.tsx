@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useTags } from '../hooks';
 import TagLabel from './TagLabel';
-import SidebarSkeleton from '../skeletons/SidebarSkeleton';
-import BlogFooter from './BlogFooter';
+import SidebarSkeleton from './skeletons/SidebarSkeleton';
+import BlogFooter from './Footer';
 
 interface GetTagsType {
   id: string;

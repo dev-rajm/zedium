@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import PenButton from '../components/PenButton';
 import Sidebar from '../components/Sidebar';
 import { useBlogs } from '../hooks';
-import { BlogCardSkeleton } from '../skeletons/BlogCardSkeleton';
+import { BlogCardSkeleton } from '../components/skeletons/BlogCardSkeleton';
 
 interface GetPostType {
   id: string;
@@ -33,7 +33,7 @@ function Blogs() {
               .map(blog => (
                 <BlogCard
                   key={blog.id}
-                  blogId={blog.id}
+                  id={blog.id}
                   firstName={blog.author.firstName}
                   lastName={blog.author.lastName}
                   title={blog.title}

@@ -1,11 +1,11 @@
-import Avatar from './Avatar';
-import BlogCardTitle from './BlogCardTitle';
-import BlogCardDescription from './BlogCardDescription';
-import BlogCardDate from './BlogCardDate';
-import BlogCardAuthor from './BlogCardAuthor';
-import BlogCardTimeLabel from './BlogCardTimeLabel';
+import Avatar from '../Avatar';
+import Title from './Title';
+import Description from './Description';
+import PublishedDate from './PublishedDate';
+import BlogCardAuthor from './Author';
+import ReadTime from './ReadTime';
 import { Link } from 'react-router-dom';
-import { BlogCardType } from '../types';
+import { BlogCardType } from '../../types';
 
 function BlogCard({
   id,
@@ -22,13 +22,13 @@ function BlogCard({
           <Avatar firstName={firstName} lastName={lastName} size={30} />
           <BlogCardAuthor firstName={firstName} lastName={lastName} />
           {'•'}
-          <BlogCardDate date={date} />
+          <PublishedDate date={date} />
         </div>
         <Link to={`/blog/${id}`}>
-          <BlogCardTitle title={title} />
+          <Title title={title} />
         </Link>
-        <BlogCardDescription content={content} />
-        <BlogCardTimeLabel content={content} />
+        <Description content={content} />
+        <ReadTime content={content} />
       </div>
     </div>
   );

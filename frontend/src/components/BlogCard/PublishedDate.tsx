@@ -1,4 +1,4 @@
-function BlogCardDate({ date }: { date: string }) {
+function PublishedDate({ date }: { date: string }) {
   return (
     <div className="text-slate-500 ml-1">
       {new Date(date).toLocaleString('en-us', {
@@ -10,4 +10,4 @@ function BlogCardDate({ date }: { date: string }) {
   );
 }
 
-export default BlogCardDate;
+export default PublishedDate;

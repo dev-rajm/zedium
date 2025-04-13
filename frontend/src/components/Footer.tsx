@@ -7,7 +7,6 @@ function BlogFooter() {
         <li className="mr-2.5 hover:underline cursor-pointer">Privacy</li>
         <li className="mr-2.5 hover:underline cursor-pointer">Terms</li>
         <li className="mr-2.5 hover:underline cursor-pointer">Rules</li>
-        <li className="mr-2.5 hover:underline cursor-pointer">Contribution</li>
         <li className="mr-2.5 hover:underline cursor-pointer">Contact</li>
       </ul>
     </div>

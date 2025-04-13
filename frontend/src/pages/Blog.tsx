@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useBlog } from '../hooks';
 import FullBlog from '../components/FullBlog';
 import Navbar from '../components/Navbar';
-import FullBlogSkeleton from '../skeletons/FullBlogSkeleton';
+import FullBlogSkeleton from '../components/skeletons/FullBlogSkeleton';
 import { Toaster } from 'react-hot-toast';
 import { BlogsType } from '../types';
 

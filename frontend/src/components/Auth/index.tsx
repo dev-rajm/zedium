@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import Input from './Input';
+import Input from '../Input';
 import { useState } from 'react';
 import { SignUpSchema } from '@devrajm/zedium-common-app';
-import Button from './Button';
+import Button from '../Button';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import { BACKEND_URL } from '../config';
-import AuthHeader from './AuthHeader';
+import { BACKEND_URL } from '../../config';
+import AuthHeader from './Header';
 
 function Auth({ type }: { type: 'signup' | 'signin' }) {
   const navigate = useNavigate();

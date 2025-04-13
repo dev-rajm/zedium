@@ -1,5 +1,5 @@
 import Avatar from './Avatar';
-import BlogCardDate from './BlogCardDate';
+import BlogCardDate from './BlogCard/PublishedDate';
 
 interface Users {
   id: string;

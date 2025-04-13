@@ -1,8 +1,8 @@
 import { BlogsType } from '../types';
 import Avatar from './Avatar';
-import BlogCardAuthor from './BlogCardAuthor';
-import BlogCardDate from './BlogCardDate';
-import BlogFooter from './BlogFooter';
+import BlogCardAuthor from './BlogCard/Author';
+import BlogCardDate from './BlogCard/PublishedDate';
+import BlogFooter from './Footer';
 import SecondaryNavbar from './SecondaryNavbar';
 import TagLabel from './TagLabel';
 

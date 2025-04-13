@@ -1,4 +1,4 @@
-function BlogCardTimeLabel({ content }: { content: string }) {
+function ReadTime({ content }: { content: string }) {
   return (
     <div className="text-sm text-slate-600 mt-4 px-3 py-0.5 rounded-2xl bg-slate-200 w-fit">
       {Math.ceil(content.length / 100) + ' ' + 'minute(s) read'}
@@ -6,4 +6,4 @@ function BlogCardTimeLabel({ content }: { content: string }) {
   );
 }
 
-export default BlogCardTimeLabel;
+export default ReadTime;

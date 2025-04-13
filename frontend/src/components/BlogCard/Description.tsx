@@ -1,4 +1,4 @@
-function BlogCardDescription({ content }: { content: string }) {
+function Description({ content }: { content: string }) {
   return (
     <div className="text-slate-600 leading-tight">
       {content.length > 124 ? content.slice(0, 125) + '...' : content}
@@ -6,4 +6,4 @@ function BlogCardDescription({ content }: { content: string }) {
   );
 }
 
-export default BlogCardDescription;
+export default Description;
