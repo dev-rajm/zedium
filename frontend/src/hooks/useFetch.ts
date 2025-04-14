@@ -2,12 +2,11 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-export const useFetch = <T,>(url: string, initialState: T, withAuth = true) => {
+export const useFetch = <T>(url: string, initialState: T, withAuth = true) => {
   const [data, setData] = useState<T>(initialState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('fetching...');
     const fetcher = async () => {
       try {
         const headers = withAuth

@@ -1,3 +1,4 @@
+import Markdown from 'react-markdown';
 import { BlogsType } from '../types';
 import Avatar from './Avatar';
 import BlogCardAuthor from './BlogCard/Author';
@@ -14,7 +15,9 @@ function FullBlog({ blog }: { blog: BlogsType }) {
       </div>
       <div className="absolute top-32 flex flex-col items-center justify-center w-full my-8">
         <div className="max-w-xs lg:max-w-2xl">
-          <div className="text-4xl font-bold">{blog.title}</div>
+          <div className="text-4xl font-bold">
+            <Markdown>{blog.title}</Markdown>
+          </div>
           <div className="mt-6 mb-8 flex items-center">
             <Avatar
               size={36}
@@ -33,7 +36,7 @@ function FullBlog({ blog }: { blog: BlogsType }) {
             </div>
           </div>
           <div className="font-serif tracking-wide leading-relaxed text-xl">
-            {blog.content}
+            <Markdown>{blog.content}</Markdown>
           </div>
           <div className="flex flex-wrap my-8">
             {blog.tags?.map(tag => (
