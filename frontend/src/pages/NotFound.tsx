@@ -17,12 +17,12 @@ function NotFound() {
           </p>
 
           <Link to={'/blogs'}>
-            <a
+            <div
               rel="noopener noreferrer"
               className="px-8 py-3 font-semibold rounded bg-violet-400 text-gray-900"
             >
               Back to homepage
-            </a>
+            </div>
           </Link>
         </div>
       </div>

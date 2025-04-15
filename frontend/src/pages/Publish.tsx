@@ -10,6 +10,7 @@ function Publish() {
   const textareaRef = useRef(null);
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
+  const [tags, setTags] = useState('');
   const [preview, setPreview] = useState(false);
   const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ function Publish() {
     try {
       const res = await axios.post(
         `${BACKEND_URL}/api/v1/blog`,
-        { title: title, content: content, published: arg },
+        { title: title, content: content, tags: tags, published: arg },
         { headers: { Authorization: localStorage.getItem('token') } }
       );
       toast.success(arg ? 'Published' : 'Saved as draft');
@@ -25,6 +26,7 @@ function Publish() {
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         toast.error(e.response?.data.message || 'Something went wrong');
+        navigate('/signin');
       } else {
         toast.error('An unexpected error occurred');
       }
@@ -99,7 +101,7 @@ function Publish() {
           ) : (
             <>
               <input
-                className="w-full min-h-20 wrap-break-word mb-3 text-5xl h-auto outline-none font-serif"
+                className="w-full min-h-20 wrap-break-word mb-3 text-4xl lg:text-5xl h-auto outline-none font-serif"
                 onChange={e => setTitle(e.target.value)}
                 value={title}
                 placeholder="# Your story title..."
@@ -112,6 +114,13 @@ function Publish() {
                 value={content}
                 placeholder="## Start writing your masterpiece as markdown..."
                 className="w-full outline-none text-xl font-serif leading-relaxed overflow-y-hidden resize-none"
+              />
+              <input
+                className="w-full min-h-20 wrap-break-word mb-3 text-xl h-auto outline-none font-serif"
+                onChange={e => setTags(e.target.value)}
+                value={tags}
+                placeholder="Tags: E.g., Blogging, Tech, Creativity"
+                type="text"
               />
             </>
           )}

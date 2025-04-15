@@ -15,6 +15,7 @@ export const useBlog = ({ id }: { id: string }) => {
     `${BACKEND_URL}/api/v1/blog/${id}`,
     undefined as unknown as { blog: BlogsType }
   );
+
   return { blog: data?.blog, loading };
 };
 
